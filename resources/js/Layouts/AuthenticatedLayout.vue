@@ -17,8 +17,8 @@ const menu = [
     },
     {
         name: "Users",
-        href: route("users"),
-        current: route().current("users"),
+        href: route("dashboard"),
+        current: route().current("dashboard"),
     },
     {
         name: "Pengelolaan Absensi",

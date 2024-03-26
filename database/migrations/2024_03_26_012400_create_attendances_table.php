@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tasks', function (Blueprint $table) {
-            $table->id();
-            // $table->foreignId('course_id')->constrained('courses');
-            $table->string('title', 50);
+        Schema::create('attendances', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('latitude', 20);
+            $table->string('longitude', 20);
+            $table->string('address', 500);
+            $table->enum('status', ['attend', 'sick', 'leave']);
             $table->string('description', 500)->nullable();
-            $table->date('due_date');
-            $table->integer('points');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_tasks');
+        Schema::dropIfExists('assigments');
     }
 };

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('task_id')->constrained('tasks');
-            $table->foreignId('student_id')->constrained('classes');
+            // $table->foreignId('task_id')->constrained('tasks');
+            // $table->foreignId('student_id')->constrained('classes');
             $table->string('sumbission_file', 500);
             $table->date('sumbission_date');
             $table->integer('grade');

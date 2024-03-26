@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('enrollments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained('users');
-            $table->foreignId('course_id')->constrained('courses');
-            $table->foreignId('class_id')->constrained('classes');
+            // $table->foreignId('student_id')->constrained('users');
+            // $table->foreignId('course_id')->constrained('courses');
+            // $table->foreignId('class_id')->constrained('classes');
             $table->integer('order_number');
             $table->timestamps();
         });

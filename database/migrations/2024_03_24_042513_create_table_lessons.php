@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('type', ['file', 'link']);
             $table->string('lesson_file', 500)->nullable();
             $table->string('lesson_link', 500)->nullable();
-            $table->foreignId('course_id')->constrained('courses');
+            // $table->foreignId('course_id')->constrained('courses');
             $table->timestamps();
         });
     }
