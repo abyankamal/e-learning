@@ -24,4 +24,10 @@ class Courses extends Model
     {
         return $this->hasMany(Lessons::class);
     }
+
+    public function enrolledStudents()  // Assuming using Enrollments table
+    {
+        return $this->hasMany(User::class, 'course_id', 'id')
+            ->through(Enrollments::class);
+    }
 }

@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('latitude', 20);
             $table->string('longitude', 20);
             $table->string('address', 500);
+            $table->dateTime('attendance_date');
+            $table->dateTime('attendance_time');
+            $table->dateTime('expected_time')->nullable();
             $table->enum('status', ['attend', 'sick', 'leave']);
             $table->string('description', 500)->nullable();
             $table->timestamps();
