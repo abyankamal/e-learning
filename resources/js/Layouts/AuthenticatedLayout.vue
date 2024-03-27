@@ -5,84 +5,126 @@ import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
+import { computed } from "vue";
 
-const showingNavigationDropdown = ref(false);
-const menu = [
-    // menu admin
-    {
-        name: "Dashboard",
-        href: route("dashboard"),
-        current: route().current("dashboard"),
-    },
-    {
-        name: "Users",
-        href: route("dashboard"),
-        current: route().current("dashboard"),
-    },
-    {
-        name: "Pengelolaan Absensi",
-        href: route("dashboard"),
-        current: route().current("dashboard"),
-    },
-    {
-        name: "Pengelolaan Murid",
-        href: route("dashboard"),
-        current: route().current("dashboard"),
-    },
-    {
-        name: "Pengelolaan Kelas",
-        href: route("dashboard"),
-        current: route().current("dashboard"),
-    },
-    {
-        name: "Pengelolaan Rombel",
-        href: route("dashboard"),
-        current: route().current("dashboard"),
-    },
-    // menu guru
-    {
-        name: "Absensi",
-        href: route("dashboard"),
-        current: route().current("dashboard"),
-    },
-    {
-        name: "Dashboard",
-        href: route("dashboard"),
-        current: route().current("dashboard"),
-    },
-    {
-        name: "Pengelolaan Materi",
-        href: route("dashboard"),
-        current: route().current("dashboard"),
-    },
-    {
-        name: "Pengelolaan Tugas",
-        href: route("dashboard"),
-        current: route().current("dashboard"),
-    },
-    // menu siswa
-    {
-        name: "Absensi",
-        href: route("dashboard"),
-        current: route().current("dashboard"),
-    },
-    {
-        name: "Dashboard",
-        href: route("dashboard"),
-        current: route().current("dashboard"),
-    },
-    {
-        name: "Daftar Materi",
-        href: route("dashboard"),
-        current: route().current("dashboard"),
-    },
-    {
-        name: "Daftar Tugas",
-        href: route("dashboard"),
-        current: route().current("dashboard"),
-    },
-];
+// const menu = [
+//     // menu admin
+//     {
+//         name: "Dashboard",
+//         href: route("dashboard"),
+//         current: route().current("dashboard"),
+//     },
+//     {
+//         name: "Users",
+//         href: route("dashboard"),
+//         current: route().current("dashboard"),
+//     },
+//     {
+//         name: "Pengelolaan Absensi",
+//         href: route("dashboard"),
+//         current: route().current("dashboard"),
+//     },
+//     {
+//         name: "Pengelolaan Murid",
+//         href: route("dashboard"),
+//         current: route().current("dashboard"),
+//     },
+//     {
+//         name: "Pengelolaan Kelas",
+//         href: route("dashboard"),
+//         current: route().current("dashboard"),
+//     },
+//     {
+//         name: "Pengelolaan Rombel",
+//         href: route("dashboard"),
+//         current: route().current("dashboard"),
+//     },
+//     // menu guru
+//     {
+//         name: "Absensi",
+//         href: route("dashboard"),
+//         current: route().current("dashboard"),
+//     },
+//     {
+//         name: "Dashboard",
+//         href: route("dashboard"),
+//         current: route().current("dashboard"),
+//     },
+//     {
+//         name: "Pengelolaan Materi",
+//         href: route("dashboard"),
+//         current: route().current("dashboard"),
+//     },
+//     {
+//         name: "Pengelolaan Tugas",
+//         href: route("dashboard"),
+//         current: route().current("dashboard"),
+//     },
+//     // menu siswa
+//     {
+//         name: "Absensi",
+//         href: route("dashboard"),
+//         current: route().current("dashboard"),
+//     },
+//     {
+//         name: "Dashboard",
+//         href: route("dashboard"),
+//         current: route().current("dashboard"),
+//     },
+//     {
+//         name: "Daftar Materi",
+//         href: route("dashboard"),
+//         current: route().current("dashboard"),
+//     },
+//     {
+//         name: "Daftar Tugas",
+//         href: route("dashboard"),
+//         current: route().current("dashboard"),
+//     },
+// ];
+
+const page = usePage();
+
+const userRoleMenu = computed(() => {
+    const user = page.props.auth.user;
+    const role = user?.role;
+
+    if (role === "admin") {
+        return [
+            {
+                name: "Dashboard",
+                href: route("dashboard"),
+                current: route().current("dashboard"),
+            },
+            {
+                name: "Users",
+                href: route("dashboard"),
+                current: route().current("dashboard"),
+            },
+            {
+                name: "Pengelolaan Absensi",
+                href: route("dashboard"),
+                current: route().current("dashboard"),
+            },
+            {
+                name: "Pengelolaan Murid",
+                href: route("dashboard"),
+                current: route().current("dashboard"),
+            },
+            {
+                name: "Pengelolaan Kelas",
+                href: route("dashboard"),
+                current: route().current("dashboard"),
+            },
+            {
+                name: "Pengelolaan Rombel",
+                href: route("dashboard"),
+                current: route().current("dashboard"),
+            },
+        ];
+    }
+});
 </script>
 
 <template>
@@ -105,18 +147,14 @@ const menu = [
                             <!-- Navigation Links -->
                             <div
                                 class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
+                                v-for="(item, index) in userRoleMenu"
                             >
                                 <NavLink
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
+                                    :key="index"
+                                    :href="item.href"
+                                    :active="item.current"
                                 >
-                                    Dashboard
-                                </NavLink>
-                                <NavLink
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
-                                >
-                                    Dashboard
+                                    {{ item.name }}
                                 </NavLink>
                             </div>
                         </div>
