@@ -1,0 +1,14 @@
+[
+    {
+        "value": "admin",
+        "label": "Admin"
+    },
+    {
+        "value": "siswa",
+        "label": "Siswa"
+    },
+    {
+        "value": "guru",
+        "label": "Guru"
+    }
+]

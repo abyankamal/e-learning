@@ -5,19 +5,42 @@ import { Head, useForm } from "@inertiajs/vue3";
 import { Transition } from "vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
+import SelectBox from "@/Components/SelectBox.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import roles from "@/data/roles.json";
+import { ref } from "vue";
+
+const roleAccount = roles;
 
 const form = useForm({
     name: "",
     email: "",
     password: "",
     password_confirmation: "",
-    role: "",
+    role: "siswa",
 });
+
+const selectedRole = ref("siswa");
+
+const emit = defineEmits(["roleChanged"]);
+
+const onSubmit = (e) => {
+    e.preventDefault();
+
+    post(route("users.store"), {
+        preserveScroll: true,
+        onSuccess: () => {
+            alert("User Sucess Created");
+        },
+        onError: (errors) => {
+            console.log(errors);
+        },
+    });
+};
 </script>
 
 <template>
-    <Head title="Profile" />
+    <Head title="Halaman Tambah Akun" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -44,29 +67,25 @@ const form = useForm({
                                             <h2
                                                 className="text-lg font-medium text-gray-900"
                                             >
-                                                Profile Information
+                                                Tambah Akun
                                             </h2>
 
                                             <p
                                                 className="mt-1 text-sm text-gray-600"
                                             >
-                                                Update your account's profile
-                                                information and email address.
+                                                Silahkan Masukan Data Akun Yang
+                                                Diperlukan
                                             </p>
                                         </header>
 
                                         <form
-                                            @submit.prevent="
-                                                form.patch(
-                                                    route('profile.update')
-                                                )
-                                            "
+                                            @submit.prevent="onSubmit"
                                             class="mt-6 space-y-6"
                                         >
                                             <div>
                                                 <InputLabel
                                                     for="name"
-                                                    value="Name"
+                                                    value="Nama"
                                                 />
 
                                                 <TextInput
@@ -106,44 +125,75 @@ const form = useForm({
                                                 />
                                             </div>
 
-                                            <div
-                                                v-if="
-                                                    mustVerifyEmail &&
-                                                    user.email_verified_at ===
-                                                        null
-                                                "
-                                            >
-                                                <p
-                                                    class="text-sm mt-2 text-gray-800"
-                                                >
-                                                    Your email address is
-                                                    unverified.
-                                                    <Link
-                                                        :href="
-                                                            route(
-                                                                'verification.send'
-                                                            )
-                                                        "
-                                                        method="post"
-                                                        as="button"
-                                                        class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                                    >
-                                                        Click here to re-send
-                                                        the verification email.
-                                                    </Link>
-                                                </p>
+                                            <div>
+                                                <InputLabel
+                                                    for="password"
+                                                    value="Password"
+                                                />
 
-                                                <div
-                                                    v-show="
-                                                        status ===
-                                                        'verification-link-sent'
+                                                <TextInput
+                                                    id="password"
+                                                    type="password"
+                                                    class="mt-1 block w-full"
+                                                    v-model="form.password"
+                                                    required
+                                                    autocomplete="username"
+                                                />
+
+                                                <InputError
+                                                    class="mt-2"
+                                                    :message="
+                                                        form.errors.password
                                                     "
-                                                    class="mt-2 font-medium text-sm text-green-600"
-                                                >
-                                                    A new verification link has
-                                                    been sent to your email
-                                                    address.
-                                                </div>
+                                                />
+                                            </div>
+
+                                            <div>
+                                                <InputLabel
+                                                    for="password"
+                                                    value="Konfirmasi Password"
+                                                />
+
+                                                <TextInput
+                                                    id="password"
+                                                    type="password"
+                                                    class="mt-1 block w-full"
+                                                    v-model="
+                                                        form.password_confirmation
+                                                    "
+                                                    required
+                                                    autocomplete="username"
+                                                />
+
+                                                <InputError
+                                                    class="mt-2"
+                                                    :message="
+                                                        form.errors
+                                                            .password_confirmation
+                                                    "
+                                                />
+                                            </div>
+
+                                            <div>
+                                                <InputLabel
+                                                    for="password"
+                                                    value="Konfirmasi Password"
+                                                />
+
+                                                <SelectBox
+                                                    id="role"
+                                                    currentValue="siswa"
+                                                    :options="roleAccount"
+                                                    className="mt-1 block w-full"
+                                                />
+
+                                                <InputError
+                                                    class="mt-2"
+                                                    :message="
+                                                        form.errors
+                                                            .password_confirmation
+                                                    "
+                                                />
                                             </div>
 
                                             <div
@@ -151,7 +201,7 @@ const form = useForm({
                                             >
                                                 <PrimaryButton
                                                     :disabled="form.processing"
-                                                    >Save</PrimaryButton
+                                                    >Simpan</PrimaryButton
                                                 >
 
                                                 <Transition
