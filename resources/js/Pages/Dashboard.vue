@@ -1,6 +1,20 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import { Head, usePage } from "@inertiajs/vue3";
+import { computed } from "vue";
+
+const page = usePage();
+const userRole = computed(() => {
+    const user = page.props.auth.user;
+    const role = user?.role;
+    if (role === "admin") {
+        return "Admin";
+    } else if (role === "guru") {
+        return "Guru";
+    } else if (role === "siswa") {
+        return "Siswa";
+    }
+});
 </script>
 
 <template>
@@ -8,7 +22,9 @@ import { Head } from '@inertiajs/vue3';
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Dashboard {{ userRole }}
+            </h2>
         </template>
 
         <div class="py-12">

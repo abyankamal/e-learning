@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -20,7 +21,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/dashboardadmin', [AdminController::class, 'index'])->name('dashboardadmin');
+    Route::get('/daftarakun', [UserController::class, 'index'])->name('users');
+    Route::get('/daftarakun/tambah', [UserController::class, 'create'])->name('users.create');
+    Route::get('/daftarakun/edit/{user}', [UserController::class, 'edit'])->name('users.edit');
 });
 
 Route::middleware('auth')->group(function () {

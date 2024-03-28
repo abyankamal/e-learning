@@ -8,82 +8,7 @@ import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import { Link, usePage } from "@inertiajs/vue3";
 import { computed } from "vue";
 
-// const menu = [
-//     // menu admin
-//     {
-//         name: "Dashboard",
-//         href: route("dashboard"),
-//         current: route().current("dashboard"),
-//     },
-//     {
-//         name: "Users",
-//         href: route("dashboard"),
-//         current: route().current("dashboard"),
-//     },
-//     {
-//         name: "Pengelolaan Absensi",
-//         href: route("dashboard"),
-//         current: route().current("dashboard"),
-//     },
-//     {
-//         name: "Pengelolaan Murid",
-//         href: route("dashboard"),
-//         current: route().current("dashboard"),
-//     },
-//     {
-//         name: "Pengelolaan Kelas",
-//         href: route("dashboard"),
-//         current: route().current("dashboard"),
-//     },
-//     {
-//         name: "Pengelolaan Rombel",
-//         href: route("dashboard"),
-//         current: route().current("dashboard"),
-//     },
-//     // menu guru
-//     {
-//         name: "Absensi",
-//         href: route("dashboard"),
-//         current: route().current("dashboard"),
-//     },
-//     {
-//         name: "Dashboard",
-//         href: route("dashboard"),
-//         current: route().current("dashboard"),
-//     },
-//     {
-//         name: "Pengelolaan Materi",
-//         href: route("dashboard"),
-//         current: route().current("dashboard"),
-//     },
-//     {
-//         name: "Pengelolaan Tugas",
-//         href: route("dashboard"),
-//         current: route().current("dashboard"),
-//     },
-//     // menu siswa
-//     {
-//         name: "Absensi",
-//         href: route("dashboard"),
-//         current: route().current("dashboard"),
-//     },
-//     {
-//         name: "Dashboard",
-//         href: route("dashboard"),
-//         current: route().current("dashboard"),
-//     },
-//     {
-//         name: "Daftar Materi",
-//         href: route("dashboard"),
-//         current: route().current("dashboard"),
-//     },
-//     {
-//         name: "Daftar Tugas",
-//         href: route("dashboard"),
-//         current: route().current("dashboard"),
-//     },
-// ];
-
+const showingNavigationDropdown = ref(false);
 const page = usePage();
 
 const userRoleMenu = computed(() => {
@@ -98,9 +23,9 @@ const userRoleMenu = computed(() => {
                 current: route().current("dashboard"),
             },
             {
-                name: "Users",
-                href: route("dashboard"),
-                current: route().current("dashboard"),
+                name: "Kelola Akun",
+                href: route("users"),
+                current: route().current("users"),
             },
             {
                 name: "Pengelolaan Absensi",
@@ -123,6 +48,54 @@ const userRoleMenu = computed(() => {
                 current: route().current("dashboard"),
             },
         ];
+    } else if (role === "guru") {
+        return [
+            {
+                name: "Absensi",
+                href: route("dashboard"),
+                current: route().current("dashboard"),
+            },
+            {
+                name: "Dashboard",
+                href: route("dashboard"),
+                current: route().current("dashboard"),
+            },
+            {
+                name: "Pengelolaan Materi",
+                href: route("dashboard"),
+                current: route().current("dashboard"),
+            },
+            {
+                name: "Pengelolaan Tugas",
+                href: route("dashboard"),
+                current: route().current("dashboard"),
+            },
+        ];
+    } else if (role === "siswa") {
+        return [
+            {
+                name: "Absensi",
+                href: route("dashboard"),
+                current: route().current("dashboard"),
+            },
+            {
+                name: "Dashboard",
+                href: route("dashboard"),
+                current: route().current("dashboard"),
+            },
+            {
+                name: "Daftar Materi",
+                href: route("dashboard"),
+                current: route().current("dashboard"),
+            },
+            {
+                name: "Daftar Tugas",
+                href: route("dashboard"),
+                current: route().current("dashboard"),
+            },
+        ];
+    } else {
+        return;
     }
 });
 </script>
@@ -256,12 +229,16 @@ const userRoleMenu = computed(() => {
                     }"
                     class="sm:hidden"
                 >
-                    <div class="pt-2 pb-3 space-y-1">
+                    <div
+                        class="pt-2 pb-3 space-y-1"
+                        v-for="(item, index) in userRoleMenu"
+                    >
                         <ResponsiveNavLink
-                            :href="route('dashboard')"
-                            :active="route().current('dashboard')"
+                            :key="index"
+                            :href="item.href"
+                            :active="item.current"
                         >
-                            Dashboard
+                            {{ item.name }}
                         </ResponsiveNavLink>
                     </div>
 
