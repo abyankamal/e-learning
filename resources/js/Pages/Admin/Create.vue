@@ -9,6 +9,7 @@ import SelectBox from "@/Components/SelectBox.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import roles from "@/data/roles.json";
 import { ref } from "vue";
+import { watch } from "vue";
 
 const roleAccount = roles;
 
@@ -17,17 +18,18 @@ const form = useForm({
     email: "",
     password: "",
     password_confirmation: "",
-    role: "siswa",
+    role: "",
 });
 
-const selectedRole = ref("siswa");
-
-const emit = defineEmits(["roleChanged"]);
+// Define a method to handle the change event from the SelectBox
+const handleSelectionChange = (newValue) => {
+    console.log("Selected value changed to:", newValue);
+};
 
 const onSubmit = (e) => {
     e.preventDefault();
 
-    post(route("users.store"), {
+    form.post(route("users.store"), {
         preserveScroll: true,
         onSuccess: () => {
             alert("User Sucess Created");
@@ -177,22 +179,23 @@ const onSubmit = (e) => {
                                             <div>
                                                 <InputLabel
                                                     for="password"
-                                                    value="Konfirmasi Password"
+                                                    value="Role"
                                                 />
 
                                                 <SelectBox
                                                     id="role"
-                                                    currentValue="siswa"
+                                                    currentvalue="siswa"
+                                                    v-model="form.role"
+                                                    @change="
+                                                        handleSelectionChange
+                                                    "
                                                     :options="roleAccount"
                                                     className="mt-1 block w-full"
                                                 />
 
                                                 <InputError
                                                     class="mt-2"
-                                                    :message="
-                                                        form.errors
-                                                            .password_confirmation
-                                                    "
+                                                    :message="form.errors.role"
                                                 />
                                             </div>
 
