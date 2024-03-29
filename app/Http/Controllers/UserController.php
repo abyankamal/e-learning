@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -58,5 +60,10 @@ class UserController extends Controller
             'password' => $request->password ? bcrypt($request->password) : $user->password
         ]);
         return redirect()->route('users');
+    }
+
+    public function destroy()
+    {
+        return Inertia::render('Admin/Delete');
     }
 }

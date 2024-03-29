@@ -15,7 +15,7 @@ class AdminRole
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->role === 'admin') {
+        if (auth()->user()->role === 'admin' || auth()->user()->role === 'guru' || auth()->user()->role === 'siswa') {
             return $next($request);
         }
         abort(403);

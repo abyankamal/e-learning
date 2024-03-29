@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import TextInput from "@/Components/TextInput.vue";
-import { Head, useForm } from "@inertiajs/vue3";
+import { Head, useForm, usePage } from "@inertiajs/vue3";
 import { Transition } from "vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
@@ -11,12 +11,14 @@ import roles from "@/data/roles.json";
 
 const roleAccount = roles;
 
+const user = usePage().props.auth.user;
+
 const form = useForm({
-    name: "",
-    email: "",
+    name: user.name,
+    email: user.email,
     password: "",
     password_confirmation: "",
-    role: "",
+    role: user.role,
 });
 
 // Define a method to handle the change event from the SelectBox
@@ -27,13 +29,13 @@ const handleSelectionChange = (newValue) => {
 const onSubmit = (e) => {
     e.preventDefault();
 
-    form.post(route("users.store"), {
+    form.patch(route("users.update", user.id), {
         preserveScroll: true,
         onSuccess: () => {
-            alert("User Sucess Created");
+            alert("User Sucess Updated!");
         },
         onError: (errors) => {
-            console.log(errors);
+            console.log("errors");
         },
     });
 };
@@ -136,7 +138,6 @@ const onSubmit = (e) => {
                                                     type="password"
                                                     class="mt-1 block w-full"
                                                     v-model="form.password"
-                                                    required
                                                     autocomplete="username"
                                                 />
 
@@ -161,7 +162,6 @@ const onSubmit = (e) => {
                                                     v-model="
                                                         form.password_confirmation
                                                     "
-                                                    required
                                                     autocomplete="username"
                                                 />
 
@@ -174,7 +174,7 @@ const onSubmit = (e) => {
                                                 />
                                             </div>
 
-                                            <div>
+                                            <!-- <div>
                                                 <InputLabel
                                                     for="password"
                                                     value="Role"
@@ -182,7 +182,7 @@ const onSubmit = (e) => {
 
                                                 <SelectBox
                                                     id="role"
-                                                    currentvalue="siswa"
+                                                    :currentvalue="form.role"
                                                     v-model="form.role"
                                                     @change="
                                                         handleSelectionChange
@@ -195,7 +195,7 @@ const onSubmit = (e) => {
                                                     class="mt-2"
                                                     :message="form.errors.role"
                                                 />
-                                            </div>
+                                            </div> -->
 
                                             <div
                                                 class="flex items-center gap-4"

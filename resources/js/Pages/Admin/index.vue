@@ -1,4 +1,5 @@
 <template>
+    <Head title="Halaman Daftar Akun" />
     <AuthenticatedLayout :user="auth.user">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -36,7 +37,7 @@
                                                     scope="col"
                                                     class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
                                                 >
-                                                    Id
+                                                    Number
                                                 </th>
                                                 <th
                                                     scope="col"
@@ -91,17 +92,28 @@
                                                         {{ user.role }}
                                                     </td>
                                                     <td
-                                                        class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                                        class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 justify-between"
                                                     >
                                                         <Link
                                                             :href="
                                                                 route(
-                                                                    'dashboard'
+                                                                    'users.edit',
+                                                                    user.id
                                                                 )
                                                             "
-                                                            class="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                                            class="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-1"
                                                         >
                                                             Edit
+                                                        </Link>
+                                                        <Link
+                                                            :href="
+                                                                route(
+                                                                    'users.destroy'
+                                                                )
+                                                            "
+                                                            class="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                                        >
+                                                            Hapus
                                                         </Link>
                                                     </td>
                                                 </tr>
@@ -121,7 +133,7 @@
 
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Link, usePage } from "@inertiajs/vue3";
+import { Head, Link, usePage } from "@inertiajs/vue3";
 // import Pagination from "@/Components/Pagination";
 
 const props = defineProps({
