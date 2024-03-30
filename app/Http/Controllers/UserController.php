@@ -62,8 +62,11 @@ class UserController extends Controller
         return redirect()->route('users');
     }
 
-    public function destroy()
+    public function destroy(User $user)
     {
-        return Inertia::render('Admin/Delete');
+        $user->delete();
+        return redirect()
+            ->route('users')
+            ->with('message', 'User deleted successfully');
     }
 }

@@ -46,7 +46,7 @@
                                     <DialogTitle
                                         as="h3"
                                         class="text-base font-semibold leading-6 text-gray-900"
-                                        >Deactivate account</DialogTitle
+                                        >Delete account</DialogTitle
                                     >
                                     <div class="mt-2">
                                         <p class="text-sm text-gray-500">

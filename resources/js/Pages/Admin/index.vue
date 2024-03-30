@@ -105,16 +105,7 @@
                                                         >
                                                             Edit
                                                         </Link>
-                                                        <Link
-                                                            :href="
-                                                                route(
-                                                                    'users.destroy'
-                                                                )
-                                                            "
-                                                            class="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                                        >
-                                                            Hapus
-                                                        </Link>
+                                                        <DialogDelete />
                                                     </td>
                                                 </tr>
                                             </template>
@@ -140,4 +131,23 @@ const props = defineProps({
     auth: Object,
     users: Object,
 });
+
+const confirmingUserDeletion = ref(false);
+
+const confirmUserDeletion = () => {
+    confirmingUserDeletion.value = true;
+};
+
+const deleteUser = () => {
+    form.delete(route("users.destroy"), {
+        preserveScroll: true,
+        onSuccess: () => closeModal(),
+        onError: () => passwordInput.value.focus(),
+        onFinish: () => form.reset(),
+    });
+};
+
+const closeModal = () => {
+    confirmingUserDeletion.value = false;
+};
 </script>
