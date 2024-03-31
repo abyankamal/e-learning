@@ -26,7 +26,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('daftarakun/simpan', [UserController::class, 'store'])->name('users.store');
     Route::get('daftarakun/edit/{user}', [UserController::class, 'edit'])->name('users.edit');
     Route::patch('daftarakun/update/{user}', [UserController::class, 'update'])->name('users.update');
-    Route::delete('/daftarakun', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::delete('/daftarakun/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
 
 Route::middleware('auth')->group(function () {

@@ -105,7 +105,16 @@
                                                         >
                                                             Edit
                                                         </Link>
-                                                        <DialogDelete />
+                                                        <button
+                                                            @click="
+                                                                deletePost(
+                                                                    user.id
+                                                                )
+                                                            "
+                                                            class="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                                                        >
+                                                            Hapus
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             </template>
@@ -124,30 +133,30 @@
 
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link, usePage } from "@inertiajs/vue3";
+import { Head, Link, useForm } from "@inertiajs/vue3";
+import { ref } from "vue";
+
+const headers = ["title", "body", "actions"];
+
+const form = useForm({});
+
+const deletePost = (id) => {
+    form.delete(`daftarakun/${id}`);
+};
 // import Pagination from "@/Components/Pagination";
 
 const props = defineProps({
     auth: Object,
     users: Object,
+    posts: {
+        type: Array,
+        default: () => [],
+    },
 });
 
-const confirmingUserDeletion = ref(false);
+const showDeleteConfirmation = ref(false);
 
 const confirmUserDeletion = () => {
-    confirmingUserDeletion.value = true;
-};
-
-const deleteUser = () => {
-    form.delete(route("users.destroy"), {
-        preserveScroll: true,
-        onSuccess: () => closeModal(),
-        onError: () => passwordInput.value.focus(),
-        onFinish: () => form.reset(),
-    });
-};
-
-const closeModal = () => {
-    confirmingUserDeletion.value = false;
+    showDeleteConfirmation.value = true;
 };
 </script>
