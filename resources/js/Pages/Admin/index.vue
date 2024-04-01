@@ -67,14 +67,16 @@
                                         </thead>
                                         <tbody>
                                             <template
-                                                v-for="user in users.data"
+                                                v-for="(
+                                                    user, index
+                                                ) in users.data"
                                                 :key="user.id"
                                             >
                                                 <tr>
                                                     <td
                                                         class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
                                                     >
-                                                        {{ user.id }}
+                                                        {{ index + 1 }}
                                                     </td>
                                                     <td
                                                         class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
@@ -120,7 +122,7 @@
                                             </template>
                                         </tbody>
                                     </table>
-                                    <!-- <Pagination :links="users.links" /> -->
+                                    <Pagination :links="users.links" />
                                 </div>
                             </div>
                         </div>
@@ -133,10 +135,16 @@
 
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import Pagination from "@/Components/Pagination.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
+import { computed } from "vue";
 import { ref } from "vue";
 
-const headers = ["title", "body", "actions"];
+computed(() => ({
+    getRowNumber(index) {
+        return index + 1;
+    },
+}));
 
 const form = useForm({});
 
