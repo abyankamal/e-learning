@@ -1,9 +1,9 @@
 <template>
-    <Head title="Halaman Daftar Akun" />
+    <Head title="Halaman Daftar Kelas" />
     <AuthenticatedLayout :user="auth.user">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Daftar Halaman Akun {{ userRole }}
+                Dashboard {{ userRole }}
             </h2>
         </template>
 

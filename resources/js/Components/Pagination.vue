@@ -7,9 +7,9 @@ const props = defineProps({
 </script>
 
 <template>
-    <template>
+    <div>
         <div class="flex items-center justify-between mt-4">
-            <template v-for="(link, index) in links" :key="index">
+            <div v-for="(link, index) in links" :key="index">
                 <Link
                     :href="link.url"
                     class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
@@ -18,7 +18,7 @@ const props = defineProps({
                     }"
                     v-html="link.label"
                 />
-            </template>
+            </div>
         </div>
-    </template>
+    </div>
 </template>
