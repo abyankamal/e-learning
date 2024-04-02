@@ -33,14 +33,9 @@ const userRoleMenu = computed(() => {
                 current: route().current("dashboard"),
             },
             {
-                name: "Pengelolaan Murid",
-                href: route("dashboard"),
-                current: route().current("dashboard"),
-            },
-            {
                 name: "Pengelolaan Kelas",
-                href: route("dashboard"),
-                current: route().current("dashboard"),
+                href: route("classes"),
+                current: route().current("classes"),
             },
             {
                 name: "Pengelolaan Rombel",

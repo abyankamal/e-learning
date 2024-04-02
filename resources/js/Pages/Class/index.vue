@@ -10,9 +10,11 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center mb-4 mx-4">
-                    <label htmlFor="">Total Data User: {{ users.total }}</label>
+                    <!-- <label htmlFor=""
+                        >Total Data User: {{ classes.total }}</label
+                    > -->
                     <Link
-                        :href="route('users.create')"
+                        :href="route('classes.create')"
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     >
                         Tambah User
@@ -43,19 +45,7 @@
                                                     scope="col"
                                                     class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                                                 >
-                                                    Name
-                                                </th>
-                                                <th
-                                                    scope="col"
-                                                    class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                                                >
-                                                    Email
-                                                </th>
-                                                <th
-                                                    scope="col"
-                                                    class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                                                >
-                                                    Role
+                                                    Class Name
                                                 </th>
                                                 <th
                                                     scope="col"
@@ -67,12 +57,10 @@
                                         </thead>
                                         <tbody>
                                             <template
-                                                v-for="(
-                                                    user, index
-                                                ) in users.data"
+                                                v-for="(item, index) in classes"
                                                 :key="user.id"
                                             >
-                                                <tr>
+                                                <tr v-if="classes > 0">
                                                     <td
                                                         class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
                                                     >
@@ -81,26 +69,16 @@
                                                     <td
                                                         class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                                                     >
-                                                        {{ user.name }}
+                                                        {{ item.name }}
                                                     </td>
-                                                    <td
-                                                        class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
-                                                    >
-                                                        {{ user.email }}
-                                                    </td>
-                                                    <td
-                                                        class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
-                                                    >
-                                                        {{ user.role }}
-                                                    </td>
-                                                    <td
+                                                    <!-- <td
                                                         class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 justify-between"
                                                     >
                                                         <Link
                                                             :href="
                                                                 route(
-                                                                    'users.edit',
-                                                                    user.id
+                                                                    'classes.edit',
+                                                                    item.id
                                                                 )
                                                             "
                                                             class="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-1"
@@ -110,19 +88,26 @@
                                                         <button
                                                             @click="
                                                                 deletePost(
-                                                                    user.id
+                                                                    item.id
                                                                 )
                                                             "
                                                             class="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
                                                         >
                                                             Hapus
                                                         </button>
+                                                    </td> -->
+                                                </tr>
+                                                <tr v-else>
+                                                    <td
+                                                        class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                                    >
+                                                        Kosong Bang
                                                     </td>
                                                 </tr>
                                             </template>
                                         </tbody>
                                     </table>
-                                    <Pagination :links="users.links" />
+                                    <!-- <Pagination :links="classes.links" /> -->
                                 </div>
                             </div>
                         </div>
