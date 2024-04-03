@@ -19,18 +19,18 @@ class ClassController extends Controller
 
     public function create()
     {
-        return Inertia::render('Admin/Create');
+        return Inertia::render('Class/Create');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|min:20|',
-            'description' => 'required|unique:users,email',
+            'name' => 'required|min:20|unique:users,name',
+            'description' => 'required|unique:users',
         ]);
 
         Classes::create($request->all());
-        return redirect()->route('users');
+        return redirect()->route('classes');
     }
 
     public function edit(Classes $user)

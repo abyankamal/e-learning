@@ -10,14 +10,12 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center mb-4 mx-4">
-                    <!-- <label htmlFor=""
-                        >Total Data User: {{ classes.total }}</label
-                    > -->
+                    <label htmlFor="">Total Data User: 12</label>
                     <Link
                         :href="route('classes.create')"
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     >
-                        Tambah User
+                        Tambah Kelas
                     </Link>
                 </div>
 
@@ -34,7 +32,9 @@
                                         class="min-w-full divide-y divide-gray-300"
                                     >
                                         <thead>
-                                            <tr>
+                                            <tr
+                                                class="divide-x divide-gray-400"
+                                            >
                                                 <th
                                                     scope="col"
                                                     class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
@@ -45,7 +45,7 @@
                                                     scope="col"
                                                     class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                                                 >
-                                                    Class Name
+                                                    Nama Kelas
                                                 </th>
                                                 <th
                                                     scope="col"
@@ -56,55 +56,43 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <template
+                                            <tr
+                                                v-if="
+                                                    classes &&
+                                                    classes.length > 0
+                                                "
                                                 v-for="(item, index) in classes"
-                                                :key="user.id"
+                                                :key="item.id"
+                                                class="divide-x divide-gray-400"
                                             >
-                                                <tr v-if="classes > 0">
-                                                    <td
-                                                        class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
-                                                    >
-                                                        {{ index + 1 }}
-                                                    </td>
-                                                    <td
-                                                        class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
-                                                    >
-                                                        {{ item.name }}
-                                                    </td>
-                                                    <!-- <td
-                                                        class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 justify-between"
-                                                    >
-                                                        <Link
-                                                            :href="
-                                                                route(
-                                                                    'classes.edit',
-                                                                    item.id
-                                                                )
-                                                            "
-                                                            class="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-1"
-                                                        >
-                                                            Edit
-                                                        </Link>
-                                                        <button
-                                                            @click="
-                                                                deletePost(
-                                                                    item.id
-                                                                )
-                                                            "
-                                                            class="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
-                                                        >
-                                                            Hapus
-                                                        </button>
-                                                    </td> -->
-                                                </tr>
-                                                <tr v-else>
-                                                    <td
-                                                        class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
-                                                    >
-                                                        Kosong Bang
-                                                    </td>
-                                                </tr>
-                                            </template>
+                                                <td
+                                                    class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
+                                                >
+                                                    {{ index + 1 }}
+                                                </td>
+                                                <td
+                                                    class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                                >
+                                                    {{ item.name }}
+                                                </td>
+                                                <!-- <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 justify-between" >
+      <Link :href="route('classes.edit', item.id)" class="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-1">
+        Edit
+      </Link>
+      <button @click="deletePost(item.id)" class="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
+        Hapus
+      </button>
+    </td> -->
+                                            </tr>
+                                            <tr v-else class="mx-auto">
+                                                <td
+                                                    class="whitespace-nowrap px-3 py-4 text-sm rounded-md bg-red-500 text-white text-center"
+                                                    colspan="100%"
+                                                >
+                                                    Silahkan Isi Data Terlebih
+                                                    Dahulu
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                     <!-- <Pagination :links="classes.links" /> -->
