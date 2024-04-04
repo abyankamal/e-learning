@@ -10,14 +10,11 @@ import SelectBox from "@/Components/SelectBox.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 const form = useForm({
-    name: "",
+    class_name: "",
     description: "",
 });
 
 // Define a method to handle the change event from the SelectBox
-const handleSelectionChange = (newValue) => {
-    console.log("Selected value changed to:", newValue);
-};
 
 const onSubmit = (e) => {
     e.preventDefault();
@@ -87,7 +84,7 @@ const onSubmit = (e) => {
                                                     id="name"
                                                     type="text"
                                                     class="mt-1 block w-full"
-                                                    v-model="form.name"
+                                                    v-model="form.class_name"
                                                     required
                                                     autofocus
                                                     autocomplete="name"
@@ -95,20 +92,22 @@ const onSubmit = (e) => {
 
                                                 <InputError
                                                     class="mt-2"
-                                                    :message="form.errors.name"
+                                                    :message="
+                                                        form.errors.class_name
+                                                    "
                                                 />
                                             </div>
 
                                             <div>
                                                 <InputLabel
-                                                    for="password"
-                                                    value="Password"
+                                                    for="description"
+                                                    value="Description"
                                                 />
 
                                                 <TextArea
                                                     id="description"
                                                     type="text"
-                                                    v-model="description"
+                                                    v-model="form.description"
                                                     required
                                                     autocomplete="description"
                                                 />
@@ -116,7 +115,7 @@ const onSubmit = (e) => {
                                                 <InputError
                                                     class="mt-2"
                                                     :message="
-                                                        form.errors.password
+                                                        form.errors.description
                                                     "
                                                 />
                                             </div>

@@ -10,7 +10,9 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center mb-4 mx-4">
-                    <label htmlFor="">Total Data User: 12</label>
+                    <label htmlFor=""
+                        >Total Data User: {{ classes.total }}</label
+                    >
                     <Link
                         :href="route('classes.create')"
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -58,10 +60,11 @@
                                         <tbody>
                                             <tr
                                                 v-if="
-                                                    classes &&
-                                                    classes.length > 0
+                                                    classes && classes.total > 0
                                                 "
-                                                v-for="(item, index) in classes"
+                                                v-for="(
+                                                    item, index
+                                                ) in classes.data"
                                                 :key="item.id"
                                                 class="divide-x divide-gray-400"
                                             >
@@ -73,16 +76,31 @@
                                                 <td
                                                     class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                                                 >
-                                                    {{ item.name }}
+                                                    {{ item.class_name }}
                                                 </td>
-                                                <!-- <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 justify-between" >
-      <Link :href="route('classes.edit', item.id)" class="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-1">
-        Edit
-      </Link>
-      <button @click="deletePost(item.id)" class="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
-        Hapus
-      </button>
-    </td> -->
+                                                <td
+                                                    class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 justify-between"
+                                                >
+                                                    <Link
+                                                        :href="
+                                                            route(
+                                                                'classes.edit',
+                                                                item.id
+                                                            )
+                                                        "
+                                                        class="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-1"
+                                                    >
+                                                        Edit
+                                                    </Link>
+                                                    <button
+                                                        @click="
+                                                            deletePost(item.id)
+                                                        "
+                                                        class="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                                                    >
+                                                        Hapus
+                                                    </button>
+                                                </td>
                                             </tr>
                                             <tr v-else class="mx-auto">
                                                 <td
@@ -122,13 +140,13 @@ computed(() => ({
 const form = useForm({});
 
 const deletePost = (id) => {
-    form.delete(`daftarakun/${id}`);
+    form.delete(`daftarkelas/${id}`);
 };
 // import Pagination from "@/Components/Pagination";
 
 const props = defineProps({
     auth: Object,
-    users: Object,
+    classes: Object,
     posts: {
         type: Array,
         default: () => [],

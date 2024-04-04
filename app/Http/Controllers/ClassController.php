@@ -24,12 +24,12 @@ class ClassController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|min:20|unique:users,name',
-            'description' => 'required|unique:users',
+        $validatedData = $request->validate([
+            'class_name' => 'required|unique:classes,class_name',
+            'description' => 'required|unique:classes|min:20',
         ]);
 
-        Classes::create($request->all());
+        Classes::create($validatedData);
         return redirect()->route('classes');
     }
 
