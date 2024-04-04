@@ -1,53 +1,52 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import TextInput from "@/Components/TextInput.vue";
-import { Head, useForm, usePage } from "@inertiajs/vue3";
-import { Transition } from "vue";
+import { Head, useForm } from "@inertiajs/vue3";
+import { Transition, onMounted } from "vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
+import TextArea from "../../Components/TextArea.vue";
 import SelectBox from "@/Components/SelectBox.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import roles from "@/data/roles.json";
 
-const roleAccount = roles;
-
-const user = usePage().props.auth.user;
-
-const form = useForm({
-    name: user.name,
-    email: user.email,
-    password: "",
-    password_confirmation: "",
-    role: user.role,
+const props = defineProps({
+    classes: {
+        type: Object,
+        required: true,
+    },
 });
 
+const form = useForm({
+    class_name: props.classes?.class_name || "",
+    description: props.classes?.description || "",
+});
+
+console.log("props.classes:", props.classes);
+
 // Define a method to handle the change event from the SelectBox
-const handleSelectionChange = (newValue) => {
-    console.log("Selected value changed to:", newValue);
-};
 
 const onSubmit = (e) => {
     e.preventDefault();
 
-    form.patch(route("users.update", user.id), {
+    form.patch(route("classes.update", props.classes.id), {
         preserveScroll: true,
         onSuccess: () => {
-            alert("User Sucess Updated!");
+            alert("Class Sucess Updated!");
         },
         onError: (errors) => {
-            console.log("errors");
+            console.log(errors);
         },
     });
 };
 </script>
 
 <template>
-    <Head title="Halaman Tambah Akun" />
+    <Head title="Halaman Tambah Kelas" />
 
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Tambah Akun
+                Tambah Kelas
             </h2>
         </template>
 
@@ -69,13 +68,13 @@ const onSubmit = (e) => {
                                             <h2
                                                 className="text-lg font-medium text-gray-900"
                                             >
-                                                Tambah Akun
+                                                Tambah Kelas
                                             </h2>
 
                                             <p
                                                 className="mt-1 text-sm text-gray-600"
                                             >
-                                                Silahkan Masukan Data Akun Yang
+                                                Silahkan Masukan Data Kelas Yang
                                                 Diperlukan
                                             </p>
                                         </header>
@@ -94,7 +93,7 @@ const onSubmit = (e) => {
                                                     id="name"
                                                     type="text"
                                                     class="mt-1 block w-full"
-                                                    v-model="form.name"
+                                                    v-model="form.class_name"
                                                     required
                                                     autofocus
                                                     autocomplete="name"
@@ -102,100 +101,33 @@ const onSubmit = (e) => {
 
                                                 <InputError
                                                     class="mt-2"
-                                                    :message="form.errors.name"
+                                                    :message="
+                                                        form.errors.class_name
+                                                    "
                                                 />
                                             </div>
 
                                             <div>
                                                 <InputLabel
-                                                    for="email"
-                                                    value="Email"
+                                                    for="description"
+                                                    value="Description"
                                                 />
 
-                                                <TextInput
-                                                    id="email"
-                                                    type="email"
-                                                    class="mt-1 block w-full"
-                                                    v-model="form.email"
+                                                <TextArea
+                                                    id="description"
+                                                    type="text"
+                                                    v-model="form.description"
                                                     required
-                                                    autocomplete="username"
-                                                />
-
-                                                <InputError
-                                                    class="mt-2"
-                                                    :message="form.errors.email"
-                                                />
-                                            </div>
-
-                                            <div>
-                                                <InputLabel
-                                                    for="password"
-                                                    value="Password"
-                                                />
-
-                                                <TextInput
-                                                    id="password"
-                                                    type="password"
-                                                    class="mt-1 block w-full"
-                                                    v-model="form.password"
-                                                    autocomplete="username"
+                                                    autocomplete="description"
                                                 />
 
                                                 <InputError
                                                     class="mt-2"
                                                     :message="
-                                                        form.errors.password
+                                                        form.errors.description
                                                     "
                                                 />
                                             </div>
-
-                                            <div>
-                                                <InputLabel
-                                                    for="password"
-                                                    value="Konfirmasi Password"
-                                                />
-
-                                                <TextInput
-                                                    id="password"
-                                                    type="password"
-                                                    class="mt-1 block w-full"
-                                                    v-model="
-                                                        form.password_confirmation
-                                                    "
-                                                    autocomplete="username"
-                                                />
-
-                                                <InputError
-                                                    class="mt-2"
-                                                    :message="
-                                                        form.errors
-                                                            .password_confirmation
-                                                    "
-                                                />
-                                            </div>
-
-                                            <!-- <div>
-                                                <InputLabel
-                                                    for="password"
-                                                    value="Role"
-                                                />
-
-                                                <SelectBox
-                                                    id="role"
-                                                    :currentvalue="form.role"
-                                                    v-model="form.role"
-                                                    @change="
-                                                        handleSelectionChange
-                                                    "
-                                                    :options="roleAccount"
-                                                    className="mt-1 block w-full"
-                                                />
-
-                                                <InputError
-                                                    class="mt-2"
-                                                    :message="form.errors.role"
-                                                />
-                                            </div> -->
 
                                             <div
                                                 class="flex items-center gap-4"

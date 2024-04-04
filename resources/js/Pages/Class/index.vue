@@ -3,7 +3,7 @@
     <AuthenticatedLayout :user="auth.user">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Dashboard {{ userRole }}
+                Halaman Pengelolaan Kelas
             </h2>
         </template>
 
@@ -113,7 +113,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <!-- <Pagination :links="classes.links" /> -->
+                                    <Pagination :links="classes.links" />
                                 </div>
                             </div>
                         </div>

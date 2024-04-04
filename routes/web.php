@@ -31,9 +31,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('daftarkelas', [ClassController::class, 'index'])->name('classes');
     Route::get('daftarkelas/tambah', [ClassController::class, 'create'])->name('classes.create');
     Route::post('daftarkelas/simpan', [ClassController::class, 'store'])->name('classes.store');
-    Route::get('daftarkelas/edit/{user}', [ClassController::class, 'edit'])->name('classes.edit');
-    Route::patch('daftarkelas/update/{user}', [ClassController::class, 'update'])->name('classes.update');
-    Route::delete('/daftarkelas/{user}', [ClassController::class, 'destroy'])->name('classes.destroy');
+    Route::get('daftarkelas/edit/{class}', [ClassController::class, 'edit'])->name('classes.edit');
+    Route::patch('daftarkelas/update/{class}', [ClassController::class, 'update'])->name('classes.update');
+    Route::delete('/daftarkelas/{class}', [ClassController::class, 'destroy'])->name('classes.destroy');
 });
 
 Route::middleware('auth')->group(function () {

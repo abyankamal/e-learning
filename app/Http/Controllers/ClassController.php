@@ -33,36 +33,32 @@ class ClassController extends Controller
         return redirect()->route('classes');
     }
 
-    public function edit(Classes $user)
+    public function edit(Classes $class)
     {
-        return Inertia::render('Admin/Edit', [
-            'user' => $user
+        return Inertia::render('Class/Edit', [
+            'classes' => $class
         ]);
     }
 
-    public function update(Request $request, Classes $user)
+    public function update(Request $request, Classes $class)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'password' => 'nullable|min:8',
-            'password_confirmation' => 'nullable|same:password',
+            'class_name' => 'required|unique:classes,class_name',
+            'description' => 'required|min:20',
         ]);
 
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'role' => $request->role,
-            'password' => $request->password ? bcrypt($request->password) : $user->password
+        $class->update([
+            'class_name' => $request->class_name,
+            'description' => $request->description,
         ]);
-        return redirect()->route('users');
+        return redirect()->route('classes');
     }
 
-    public function destroy(Classes $user)
+    public function destroy(Classes $class)
     {
-        $user->delete();
+        $class->delete();
         return redirect()
-            ->route('users')
+            ->route('classes')
             ->with('message', 'User deleted successfully');
     }
 }
