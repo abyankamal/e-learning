@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClassController;
+use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Models\User;
@@ -34,6 +35,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('daftarkelas/edit/{class}', [ClassController::class, 'edit'])->name('classes.edit');
     Route::patch('daftarkelas/update/{class}', [ClassController::class, 'update'])->name('classes.update');
     Route::delete('/daftarkelas/{class}', [ClassController::class, 'destroy'])->name('classes.destroy');
+    Route::get('daftarmatapelajaran', [CoursesController::class, 'index'])->name('courses');
+    Route::get('daftarmatapelajaran/tambah', [CoursesController::class, 'create'])->name('courses.create');
+    Route::post('daftarmatapelajaran/simpan', [CoursesController::class, 'store'])->name('courses.store');
+    Route::get('daftarmatapelajaran/edit/{class}', [CoursesController::class, 'edit'])->name('courses.edit');
+    Route::patch('daftarmatapelajaran/update/{class}', [CoursesController::class, 'update'])->name('courses.update');
+    Route::delete('/daftarmatapelajaran/{class}', [CoursesController::class, 'destroy'])->name('courses.destroy');
 });
 
 Route::middleware('auth')->group(function () {
