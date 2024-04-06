@@ -153,7 +153,7 @@ computed(() => ({
 const form = useForm({});
 
 const deletePost = (id) => {
-    form.delete(`daftarkelas/${id}`);
+    form.delete(`daftarmatapelajaran/${id}`);
 };
 // import Pagination from "@/Components/Pagination";
 

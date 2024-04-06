@@ -32,7 +32,9 @@
                                         class="min-w-full divide-y divide-gray-300"
                                     >
                                         <thead>
-                                            <tr>
+                                            <tr
+                                                class="divide-x divide-gray-400"
+                                            >
                                                 <th
                                                     scope="col"
                                                     class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
@@ -71,8 +73,11 @@
                                                     user, index
                                                 ) in users.data"
                                                 :key="user.id"
+                                                class="divide-x divide-gray-400"
                                             >
-                                                <tr>
+                                                <tr
+                                                    class="divide-x divide-gray-400"
+                                                >
                                                     <td
                                                         class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
                                                     >

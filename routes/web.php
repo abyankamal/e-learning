@@ -38,9 +38,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('daftarmatapelajaran', [CoursesController::class, 'index'])->name('courses');
     Route::get('daftarmatapelajaran/tambah', [CoursesController::class, 'create'])->name('courses.create');
     Route::post('daftarmatapelajaran/simpan', [CoursesController::class, 'store'])->name('courses.store');
-    Route::get('daftarmatapelajaran/edit/{class}', [CoursesController::class, 'edit'])->name('courses.edit');
-    Route::patch('daftarmatapelajaran/update/{class}', [CoursesController::class, 'update'])->name('courses.update');
-    Route::delete('/daftarmatapelajaran/{class}', [CoursesController::class, 'destroy'])->name('courses.destroy');
+    Route::get('daftarmatapelajaran/edit/{course}', [CoursesController::class, 'edit'])->name('courses.edit');
+    Route::patch('daftarmatapelajaran/update/{course}', [CoursesController::class, 'update'])->name('courses.update');
+    Route::delete('/daftarmatapelajaran/{course}', [CoursesController::class, 'destroy'])->name('courses.destroy');
 });
 
 Route::middleware('auth')->group(function () {

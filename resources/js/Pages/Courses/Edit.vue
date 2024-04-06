@@ -10,16 +10,21 @@ import SelectBoxId from "@/Components/SelectBoxId.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 const props = defineProps({
+    courses: {
+        type: Object,
+        required: true,
+    },
     teachers: Array,
-    courses: Object,
 });
 
 console.log(props.teachers);
 
+console.log("props.classes:", props.courses);
+
 const form = useForm({
-    title: props.courses.title || "",
-    description: "",
-    teacher_id: null,
+    title: props.courses?.title || "",
+    description: props.courses?.description || "",
+    teacher_id: props.courses?.teacher_id || null,
 });
 
 // Define a method to handle the change event from the SelectBox
@@ -27,7 +32,7 @@ const form = useForm({
 const onSubmit = (e) => {
     e.preventDefault();
 
-    form.post(route("courses.store"), {
+    form.patch(route("courses.update", props.courses.id), {
         preserveScroll: true,
         onSuccess: () => {
             alert("Class Sucess Created");
@@ -142,6 +147,9 @@ const handleSelectionChange = (teacherId) => {
                                                 <SelectBoxId
                                                     id="role"
                                                     :options="teachers"
+                                                    :currentValue="
+                                                        form.teacher_id
+                                                    "
                                                     v-model="form.teacher_id"
                                                     @change="
                                                         handleSelectionChange

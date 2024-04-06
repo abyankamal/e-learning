@@ -33,6 +33,7 @@ const handleChange = (newValue) => {
     <select
         :class="classes"
         v-model="selectedValue"
+        :currentValue="selectedValue"
         @change="handleChange($event.target.value)"
     >
         <option v-for="option in options" :key="option.id" :value="option.id">

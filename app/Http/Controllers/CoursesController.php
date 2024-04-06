@@ -71,11 +71,17 @@ class CoursesController extends Controller
      */
     public function edit(Courses $course)
     {
-        $teachers = User::role('teacher')->get();
+        $courses = Courses::with('teacher')->paginate(10);
+        $teachers = User::where('role', 'guru')->get();
 
         return Inertia::render('Courses/Edit', [
-            'course' => $course,
-            'teachers' => $teachers,
+            'courses' => $course,
+            'teachers' => $teachers->map(function ($teacher) {
+                return [
+                    'id' => $teacher->id,
+                    'name' => $teacher->name,
+                ];
+            }),
         ]);
     }
 
@@ -92,7 +98,7 @@ class CoursesController extends Controller
 
         $course->update($validatedData);
 
-        return redirect()->route('courses.index')->with('success', 'Course updated successfully.');
+        return redirect()->route('courses')->with('success', 'Course updated successfully.');
     }
 
     /**
@@ -102,6 +108,6 @@ class CoursesController extends Controller
     {
         $course->delete();
 
-        return redirect()->route('courses.index')->with('success', 'Course deleted successfully.');
+        return redirect()->route('courses')->with('success', 'Course deleted successfully.');
     }
 }

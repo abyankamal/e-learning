@@ -13,8 +13,6 @@ const props = defineProps({
     teachers: Array,
 });
 
-console.log(props.teachers);
-
 const form = useForm({
     title: "",
     description: "",
