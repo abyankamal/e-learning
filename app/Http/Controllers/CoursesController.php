@@ -14,8 +14,8 @@ class CoursesController extends Controller
      */
     public function index()
     {
-        $courses = Courses::with('teacher', 'lessons', 'enrolledStudents')->get();
-
+        // $courses = Courses::with('teacher', 'lessons', 'enrolledStudents')->get();
+        $courses = Courses::with('teacher')->paginate(10);
         return Inertia::render('Courses/index', [
             'courses' => $courses,
         ]);
@@ -26,10 +26,15 @@ class CoursesController extends Controller
      */
     public function create()
     {
-        $teachers = User::role('teacher')->get();
+        $teachers = User::where('role', 'guru')->get();
 
         return Inertia::render('Courses/Create', [
-            'teachers' => $teachers,
+            'teachers' => $teachers->map(function ($teacher) {
+                return [
+                    'id' => $teacher->id,
+                    'name' => $teacher->name,
+                ];
+            }),
         ]);
     }
 
@@ -46,7 +51,7 @@ class CoursesController extends Controller
 
         $course = Courses::create($validatedData);
 
-        return redirect()->route('courses.index')->with('success', 'Course created successfully.');
+        return redirect()->route('courses')->with('success', 'Course created successfully.');
     }
 
     /**

@@ -69,9 +69,9 @@
                                                     courses && courses.total > 0
                                                 "
                                                 v-for="(
-                                                    item, index
+                                                    course, index
                                                 ) in courses.data"
-                                                :key="item.id"
+                                                :key="course.id"
                                                 class="divide-x divide-gray-400"
                                             >
                                                 <td
@@ -82,12 +82,12 @@
                                                 <td
                                                     class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                                                 >
-                                                    {{ item.title }}
+                                                    {{ course.title }}
                                                 </td>
                                                 <td
                                                     class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                                                 >
-                                                    {{ item.description }}
+                                                    {{ course.description }}
                                                 </td>
                                                 <td
                                                     class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 justify-between"
@@ -96,7 +96,7 @@
                                                         :href="
                                                             route(
                                                                 'courses.edit',
-                                                                item.id
+                                                                course.id
                                                             )
                                                         "
                                                         class="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-1"
@@ -105,7 +105,9 @@
                                                     </Link>
                                                     <button
                                                         @click="
-                                                            deletePost(item.id)
+                                                            deletePost(
+                                                                course.id
+                                                            )
                                                         "
                                                         class="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
                                                     >
@@ -163,7 +165,7 @@ const props = defineProps({
         default: () => [],
     },
 });
-
+console.log(props.courses);
 const showDeleteConfirmation = ref(false);
 
 const confirmUserDeletion = () => {

@@ -2,41 +2,45 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import TextInput from "@/Components/TextInput.vue";
 import { Head, useForm } from "@inertiajs/vue3";
-import { Transition, onMounted } from "vue";
+import { Transition } from "vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextArea from "../../Components/TextArea.vue";
-import SelectBox from "@/Components/SelectBox.vue";
+import SelectBoxId from "@/Components/SelectBoxId.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 const props = defineProps({
-    classes: {
-        type: Object,
-        required: true,
-    },
+    teachers: Array,
+    courses: Object,
 });
+
+console.log(props.teachers);
 
 const form = useForm({
-    class_name: props.classes?.class_name || "",
-    description: props.classes?.description || "",
+    title: props.courses.title || "",
+    description: "",
+    teacher_id: null,
 });
-
-console.log("props.classes:", props.classes);
 
 // Define a method to handle the change event from the SelectBox
 
 const onSubmit = (e) => {
     e.preventDefault();
 
-    form.patch(route("classes.update", props.classes.id), {
+    form.post(route("courses.store"), {
         preserveScroll: true,
         onSuccess: () => {
-            alert("Class Sucess Updated!");
+            alert("Class Sucess Created");
         },
         onError: (errors) => {
             console.log(errors);
         },
     });
+};
+
+const handleSelectionChange = (teacherId) => {
+    form.teacher_id = teacherId;
+    // Perform any additional logic here
 };
 </script>
 
@@ -46,7 +50,7 @@ const onSubmit = (e) => {
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Tambah Kelas
+                Edit Mata Pelajaran
             </h2>
         </template>
 
@@ -86,14 +90,36 @@ const onSubmit = (e) => {
                                             <div>
                                                 <InputLabel
                                                     for="name"
-                                                    value="Nama"
+                                                    value="Judul"
                                                 />
 
                                                 <TextInput
                                                     id="name"
                                                     type="text"
                                                     class="mt-1 block w-full"
-                                                    v-model="form.class_name"
+                                                    v-model="form.title"
+                                                    required
+                                                    autofocus
+                                                    autocomplete="name"
+                                                />
+
+                                                <InputError
+                                                    class="mt-2"
+                                                    :message="form.errors.title"
+                                                />
+                                            </div>
+
+                                            <div>
+                                                <InputLabel
+                                                    for="description"
+                                                    value="Deskripsi"
+                                                />
+
+                                                <TextArea
+                                                    id="name"
+                                                    type="text"
+                                                    class="mt-1 block w-full"
+                                                    v-model="form.description"
                                                     required
                                                     autofocus
                                                     autocomplete="name"
@@ -102,7 +128,7 @@ const onSubmit = (e) => {
                                                 <InputError
                                                     class="mt-2"
                                                     :message="
-                                                        form.errors.class_name
+                                                        form.errors.description
                                                     "
                                                 />
                                             </div>
@@ -110,15 +136,17 @@ const onSubmit = (e) => {
                                             <div>
                                                 <InputLabel
                                                     for="description"
-                                                    value="Description"
+                                                    value="Guru Pengampu"
                                                 />
 
-                                                <TextArea
-                                                    id="description"
-                                                    type="text"
-                                                    v-model="form.description"
-                                                    required
-                                                    autocomplete="description"
+                                                <SelectBoxId
+                                                    id="role"
+                                                    :options="teachers"
+                                                    v-model="form.teacher_id"
+                                                    @change="
+                                                        handleSelectionChange
+                                                    "
+                                                    className="mt-1 block w-full"
                                                 />
 
                                                 <InputError

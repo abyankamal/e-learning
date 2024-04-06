@@ -11,14 +11,19 @@ import roles from "@/data/roles.json";
 
 const roleAccount = roles;
 
+const props = defineProps({
+    auth: Object,
+    user: Object,
+});
+
 const user = usePage().props.auth.user;
 
 const form = useForm({
-    name: user.name,
-    email: user.email,
+    name: props.user.name,
+    email: props.user.email,
     password: "",
     password_confirmation: "",
-    role: user.role,
+    role: props.user.role,
 });
 
 // Define a method to handle the change event from the SelectBox
@@ -174,7 +179,7 @@ const onSubmit = (e) => {
                                                 />
                                             </div>
 
-                                            <!-- <div>
+                                            <div>
                                                 <InputLabel
                                                     for="password"
                                                     value="Role"
@@ -182,7 +187,6 @@ const onSubmit = (e) => {
 
                                                 <SelectBox
                                                     id="role"
-                                                    :currentvalue="form.role"
                                                     v-model="form.role"
                                                     @change="
                                                         handleSelectionChange
@@ -195,7 +199,7 @@ const onSubmit = (e) => {
                                                     class="mt-2"
                                                     :message="form.errors.role"
                                                 />
-                                            </div> -->
+                                            </div>
 
                                             <div
                                                 class="flex items-center gap-4"
