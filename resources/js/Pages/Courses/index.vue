@@ -1,5 +1,5 @@
 <template>
-    <Head title="Halaman Daftar Kelas" />
+    <Head title="Halaman Daftar Materi" />
     <AuthenticatedLayout :user="auth.user">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">

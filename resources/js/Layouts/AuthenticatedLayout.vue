@@ -28,22 +28,22 @@ const userRoleMenu = computed(() => {
                 current: route().current("users"),
             },
             {
-                name: "Pengelolaan Absensi",
+                name: "Kelola Absensi",
                 href: route("dashboard"),
                 current: route().current("dashboard"),
             },
             {
-                name: "Pengelolaan Kelas",
+                name: "Kelola Kelas",
                 href: route("classes"),
                 current: route().current("classes"),
             },
             {
-                name: "Pengelolaan Materi",
+                name: "Kelola Materi",
                 href: route("courses"),
                 current: route().current("courses"),
             },
             {
-                name: "Pengelolaan Rombel",
+                name: "Kelola Rombel",
                 href: route("enrollments"),
                 current: route().current("enrollments"),
             },
