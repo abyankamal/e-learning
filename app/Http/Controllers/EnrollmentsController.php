@@ -7,6 +7,7 @@ use App\Models\Courses;
 use App\Models\Enrollments;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class EnrollmentsController extends Controller
 {
@@ -16,7 +17,9 @@ class EnrollmentsController extends Controller
     public function index()
     {
         $enrollments = Enrollments::all();
-        return view('enrollments.index', compact('enrollments'));
+        return Inertia::render('Enrollments/index', [
+            'enrollments' => $enrollments,
+        ]);
     }
 
     /**
@@ -28,7 +31,27 @@ class EnrollmentsController extends Controller
         $courses = Courses::all();
         $classes = Classes::all();
 
-        return view('enrollments.create', compact('students', 'courses', 'classes'));
+        // return view('enrollments.create', compact('students', 'courses', 'classes'));
+        return Inertia::render('Courses/Create', [
+            'students' => $students->map(function ($student) {
+                return [
+                    'id' => $student->id,
+                    'name' => $student->name,
+                ];
+            }),
+            'courses' => $courses->map(function ($course) {
+                return [
+                    'id' => $course->id,
+                    'title' => $course->title,
+                ];
+            }),
+            'classes' => $classes->map(function ($class) {
+                return [
+                    'id' => $class->id,
+                    'class_name' => $class->class_name,
+                ];
+            }),
+        ]);
     }
 
     /**

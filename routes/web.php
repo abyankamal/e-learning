@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\EnrollmentsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Models\User;
@@ -41,6 +42,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('daftarmatapelajaran/edit/{course}', [CoursesController::class, 'edit'])->name('courses.edit');
     Route::patch('daftarmatapelajaran/update/{course}', [CoursesController::class, 'update'])->name('courses.update');
     Route::delete('/daftarmatapelajaran/{course}', [CoursesController::class, 'destroy'])->name('courses.destroy');
+    Route::get('daftarrombonganbelajar', [EnrollmentsController::class, 'index'])->name('enrollments');
+    Route::get('daftarrombonganbelajar/tambah', [EnrollmentsController::class, 'create'])->name('enrollments.create');
+    Route::post('daftarrombonganbelajar/simpan', [EnrollmentsController::class, 'store'])->name('enrollments.store');
+    Route::get('daftarrombonganbelajar/edit/{course}', [EnrollmentsController::class, 'edit'])->name('enrollments.edit');
+    Route::patch('daftarrombonganbelajar/update/{course}', [EnrollmentsController::class, 'update'])->name('enrollments.update');
+    Route::delete('/daftarrombonganbelajar/{course}', [EnrollmentsController::class, 'destroy'])->name('enrollments.destroy');
 });
 
 Route::middleware('auth')->group(function () {

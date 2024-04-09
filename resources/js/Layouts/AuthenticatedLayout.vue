@@ -44,8 +44,8 @@ const userRoleMenu = computed(() => {
             },
             {
                 name: "Pengelolaan Rombel",
-                href: route("dashboard"),
-                current: route().current("dashboard"),
+                href: route("enrollments"),
+                current: route().current("enrollments"),
             },
         ];
     } else if (role === "guru") {

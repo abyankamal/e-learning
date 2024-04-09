@@ -3,7 +3,7 @@
     <AuthenticatedLayout :user="auth.user">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Halaman Pengelolaan Materi
+                Halaman Pengelolaan Rombongan Belajar
             </h2>
         </template>
 
@@ -11,10 +11,10 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center mb-4 mx-4">
                     <label htmlFor=""
-                        >Total Data Materi: {{ courses.total }}</label
+                        >Total Data Materi: {{ enrollments.total }}</label
                     >
                     <Link
-                        :href="route('courses.create')"
+                        :href="route('enrollments.create')"
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     >
                         Tambah Materi
@@ -61,22 +61,17 @@
                                                 >
                                                     Guru Pengajar
                                                 </th>
-                                                <th
-                                                    scope="col"
-                                                    class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                                                >
-                                                    Aksi
-                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr
                                                 v-if="
-                                                    courses && courses.total > 0
+                                                    enrollments &&
+                                                    enrollments.total > 0
                                                 "
                                                 v-for="(
                                                     course, index
-                                                ) in courses.data"
+                                                ) in enrollments.data"
                                                 :key="course.id"
                                                 class="divide-x divide-gray-400"
                                             >
@@ -96,17 +91,12 @@
                                                     {{ course.description }}
                                                 </td>
                                                 <td
-                                                    class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
-                                                >
-                                                    {{ course.teacher.name }}
-                                                </td>
-                                                <td
                                                     class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 justify-between"
                                                 >
                                                     <Link
                                                         :href="
                                                             route(
-                                                                'courses.edit',
+                                                                'enrollments.edit',
                                                                 course.id
                                                             )
                                                         "
@@ -137,7 +127,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <Pagination :links="courses.links" />
+                                    <!-- <Pagination :links="enrollments.links" /> -->
                                 </div>
                             </div>
                         </div>
@@ -164,13 +154,13 @@ computed(() => ({
 const form = useForm({});
 
 const deletePost = (id) => {
-    form.delete(`daftarmatapelajaran/${id}`);
+    form.delete(`daftarrombonganbelajar/${id}`);
 };
 // import Pagination from "@/Components/Pagination";
 
 const props = defineProps({
     auth: Object,
-    courses: Object,
+    enrollments: Object,
     posts: {
         type: Array,
         default: () => [],
