@@ -60,7 +60,7 @@ class EnrollmentsController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'order_number' => 'required|unique:enrollments',
+            'order_number' => 'required|number:',
             'student_id' => 'required|exists:students,id',
             'course_id' => 'required|exists:courses,id',
             'class_id' => 'required|exists:classes,id',

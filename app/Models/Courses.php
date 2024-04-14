@@ -13,7 +13,6 @@ class Courses extends Model
         'title',
         'description',
         'teacher_id',
-        'apcb'
     ];
 
     public function teacher()

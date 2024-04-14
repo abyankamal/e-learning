@@ -11,7 +11,7 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center mb-4 mx-4">
                     <label htmlFor=""
-                        >Total Data User: {{ classes.total }}</label
+                        >Total Data Kelas: {{ classes.total }}</label
                     >
                     <Link
                         :href="route('classes.create')"
@@ -41,7 +41,7 @@
                                                     scope="col"
                                                     class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
                                                 >
-                                                    Number
+                                                    No
                                                 </th>
                                                 <th
                                                     scope="col"
@@ -53,7 +53,7 @@
                                                     scope="col"
                                                     class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                                                 >
-                                                    Action
+                                                    Aksi
                                                 </th>
                                             </tr>
                                         </thead>
