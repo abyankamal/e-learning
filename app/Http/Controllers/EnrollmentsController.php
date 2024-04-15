@@ -37,23 +37,24 @@ class EnrollmentsController extends Controller
         $courses = Courses::all()->map(function ($course) {
             return [
                 'id' => $course->id,
-                'title' => $course->title,
+                'name' => $course->name,
             ];
         });
 
         $classes = Classes::all()->map(function ($class) {
             return [
                 'id' => $class->id,
-                'class_name' => $class->class_name,
+                'name' => $class->name,
             ];
         });
 
-        return Inertia::render('Courses/Create', [
+        return Inertia::render('Enrollments/Create', [
             'students' => $students,
             'courses' => $courses,
             'classes' => $classes,
         ]);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -62,14 +63,14 @@ class EnrollmentsController extends Controller
     {
         $validatedData = $request->validate([
             'order_number' => 'required|min:7',
-            'student_id' => 'required|exists:students,id',
+            'student_id' => 'required|exists:users,id',
             'course_id' => 'required|exists:courses,id',
             'class_id' => 'required|exists:classes,id',
         ]);
 
         Enrollments::create($validatedData);
 
-        return redirect()->route('enrollments.index')->with('success', 'Enrollment created successfully.');
+        return redirect()->route('enrollments')->with('success', 'Enrollment created successfully.');
     }
 
     /**

@@ -5,7 +5,6 @@ import { Head, useForm } from "@inertiajs/vue3";
 import { Transition } from "vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
-import TextArea from "../../Components/TextArea.vue";
 import SelectBoxId from "@/Components/SelectBoxId.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 
@@ -15,13 +14,10 @@ const props = defineProps({
     classes: Array,
 });
 
-console.log("Students props:", students);
-
-console.log(props.students);
+console.log(props.courses);
 
 const form = useForm({
-    title: "",
-    description: "",
+    order_number: null,
     student_id: null,
     course_id: null,
     class_id: null,
@@ -32,7 +28,7 @@ const form = useForm({
 const onSubmit = (e) => {
     e.preventDefault();
 
-    form.post(route("courses.store"), {
+    form.post(route("enrollments.store"), {
         preserveScroll: true,
         onSuccess: () => {
             alert("Class Sucess Created");
@@ -54,7 +50,7 @@ const handleSelectionChange = (fieldName, value) => {
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Tambah Pelajaran
+                Tambah Enrollment
             </h2>
         </template>
 
@@ -76,14 +72,14 @@ const handleSelectionChange = (fieldName, value) => {
                                             <h2
                                                 className="text-lg font-medium text-gray-900"
                                             >
-                                                Tambah Kelas
+                                                Tambah Enrollment
                                             </h2>
 
                                             <p
                                                 className="mt-1 text-sm text-gray-600"
                                             >
-                                                Silahkan Masukan Data Kelas Yang
-                                                Diperlukan
+                                                Silahkan Masukan Data Siswa Yang
+                                                Akan Didaftarkan
                                             </p>
                                         </header>
 
@@ -99,31 +95,9 @@ const handleSelectionChange = (fieldName, value) => {
 
                                                 <TextInput
                                                     id="name"
-                                                    type="text"
+                                                    type="number"
                                                     class="mt-1 block w-full"
-                                                    v-model="form.title"
-                                                    required
-                                                    autofocus
-                                                    autocomplete="name"
-                                                />
-
-                                                <InputError
-                                                    class="mt-2"
-                                                    :message="form.errors.title"
-                                                />
-                                            </div>
-
-                                            <div>
-                                                <InputLabel
-                                                    for="description"
-                                                    value="Deskripsi"
-                                                />
-
-                                                <TextArea
-                                                    id="name"
-                                                    type="text"
-                                                    class="mt-1 block w-full"
-                                                    v-model="form.description"
+                                                    v-model="form.order_number"
                                                     required
                                                     autofocus
                                                     autocomplete="name"
@@ -132,7 +106,7 @@ const handleSelectionChange = (fieldName, value) => {
                                                 <InputError
                                                     class="mt-2"
                                                     :message="
-                                                        form.errors.description
+                                                        form.errors.order_number
                                                     "
                                                 />
                                             </div>
@@ -144,13 +118,13 @@ const handleSelectionChange = (fieldName, value) => {
                                                 />
 
                                                 <SelectBoxId
-                                                    id="role"
+                                                    id="student"
                                                     :options="students"
                                                     v-model="form.student_id"
                                                     @change="
                                                         handleSelectionChange(
-                                                            'selectedField',
-                                                            value
+                                                            'student_id',
+                                                            $event
                                                         )
                                                     "
                                                     className="mt-1 block w-full"
@@ -159,7 +133,61 @@ const handleSelectionChange = (fieldName, value) => {
                                                 <InputError
                                                     class="mt-2"
                                                     :message="
-                                                        form.errors.description
+                                                        form.errors.student_id
+                                                    "
+                                                />
+                                            </div>
+
+                                            <div>
+                                                <InputLabel
+                                                    for="description"
+                                                    value="Guru Pengampu"
+                                                />
+
+                                                <SelectBoxId
+                                                    id="student"
+                                                    :options="classes"
+                                                    v-model="form.class_id"
+                                                    @change="
+                                                        handleSelectionChange(
+                                                            'class_id',
+                                                            $event
+                                                        )
+                                                    "
+                                                    className="mt-1 block w-full"
+                                                />
+
+                                                <InputError
+                                                    class="mt-2"
+                                                    :message="
+                                                        form.errors.class_id
+                                                    "
+                                                />
+                                            </div>
+
+                                            <div>
+                                                <InputLabel
+                                                    for="description"
+                                                    value="Guru Pengampu"
+                                                />
+
+                                                <SelectBoxId
+                                                    id="course"
+                                                    :options="courses"
+                                                    v-model="form.course_id"
+                                                    @change="
+                                                        handleSelectionChange(
+                                                            'course_id',
+                                                            $event
+                                                        )
+                                                    "
+                                                    className="mt-1 block w-full"
+                                                />
+
+                                                <InputError
+                                                    class="mt-2"
+                                                    :message="
+                                                        form.errors.course_id
                                                     "
                                                 />
                                             </div>
