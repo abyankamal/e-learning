@@ -27,30 +27,31 @@ class EnrollmentsController extends Controller
      */
     public function create()
     {
-        $students = User::where('role', 'siswa')->all();
-        $courses = Courses::all();
-        $classes = Classes::all();
+        $students = User::where('role', 'siswa')->get()->map(function ($student) {
+            return [
+                'id' => $student->id,
+                'name' => $student->name,
+            ];
+        });
 
-        // return view('enrollments.create', compact('students', 'courses', 'classes'));
+        $courses = Courses::all()->map(function ($course) {
+            return [
+                'id' => $course->id,
+                'title' => $course->title,
+            ];
+        });
+
+        $classes = Classes::all()->map(function ($class) {
+            return [
+                'id' => $class->id,
+                'class_name' => $class->class_name,
+            ];
+        });
+
         return Inertia::render('Courses/Create', [
-            'students' => $students->map(function ($student) {
-                return [
-                    'id' => $student->id,
-                    'name' => $student->name,
-                ];
-            }),
-            'courses' => $courses->map(function ($course) {
-                return [
-                    'id' => $course->id,
-                    'title' => $course->title,
-                ];
-            }),
-            'classes' => $classes->map(function ($class) {
-                return [
-                    'id' => $class->id,
-                    'class_name' => $class->class_name,
-                ];
-            }),
+            'students' => $students,
+            'courses' => $courses,
+            'classes' => $classes,
         ]);
     }
 
@@ -60,7 +61,7 @@ class EnrollmentsController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'order_number' => 'required|number:',
+            'order_number' => 'required|min:7',
             'student_id' => 'required|exists:students,id',
             'course_id' => 'required|exists:courses,id',
             'class_id' => 'required|exists:classes,id',

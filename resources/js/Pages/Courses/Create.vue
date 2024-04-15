@@ -27,7 +27,7 @@ const onSubmit = (e) => {
     form.post(route("courses.store"), {
         preserveScroll: true,
         onSuccess: () => {
-            alert("Class Sucess Created");
+            alert("Courses Sucess Created");
         },
         onError: (errors) => {
             console.log(errors);

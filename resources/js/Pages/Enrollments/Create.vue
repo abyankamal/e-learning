@@ -10,13 +10,21 @@ import SelectBoxId from "@/Components/SelectBoxId.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 const props = defineProps({
-    teachers: Array,
+    students: Array,
+    courses: Array,
+    classes: Array,
 });
+
+console.log("Students props:", students);
+
+console.log(props.students);
 
 const form = useForm({
     title: "",
     description: "",
-    teacher_id: null,
+    student_id: null,
+    course_id: null,
+    class_id: null,
 });
 
 // Define a method to handle the change event from the SelectBox
@@ -35,9 +43,8 @@ const onSubmit = (e) => {
     });
 };
 
-const handleSelectionChange = (teacherId) => {
-    form.teacher_id = teacherId;
-    // Perform any additional logic here
+const handleSelectionChange = (fieldName, value) => {
+    form[fieldName] = value;
 };
 </script>
 
@@ -138,10 +145,13 @@ const handleSelectionChange = (teacherId) => {
 
                                                 <SelectBoxId
                                                     id="role"
-                                                    :options="teachers"
-                                                    v-model="form.teacher_id"
+                                                    :options="students"
+                                                    v-model="form.student_id"
                                                     @change="
-                                                        handleSelectionChange
+                                                        handleSelectionChange(
+                                                            'selectedField',
+                                                            value
+                                                        )
                                                     "
                                                     className="mt-1 block w-full"
                                                 />
